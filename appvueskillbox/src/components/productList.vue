@@ -5,6 +5,7 @@
       v-for="product in products"
       :key="product.id"
       :product="product"
+      :check-color="filterColor"
     ></li>
   </ul>
 </template>
@@ -14,6 +15,6 @@ import productItem from './productItem.vue';
 
 export default {
   components: { productItem },
-  props: ['products'],
+  props: ['products', 'filterColor'],
 };
 </script>

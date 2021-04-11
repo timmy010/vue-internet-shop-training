@@ -18,7 +18,7 @@
       />
 
       <section class="catalog">
-        <productList :products="products"/>
+        <productList :products="products" :filter-color="filterColorsId"/>
         <basePagination v-model="page" :count="countProducts" :per-page="productsPerPage"/>
       </section>
 
