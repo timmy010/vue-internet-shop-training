@@ -19,6 +19,7 @@
               class="colors__radio sr-only"
               type="radio"
               :value="color"
+              :checked="isChecked(color, product.colorsId, checkColor)"
             >
             <span
               class="colors__value"
@@ -36,12 +37,7 @@
 import colors from '../data/colors';
 
 export default {
-  props: ['product'],
-  data() {
-    return {
-
-    };
-  },
+  props: ['product', 'checkColor'],
   computed: {
     colors() {
       return colors;
@@ -50,6 +46,9 @@ export default {
   methods: {
     getColorValue(productColor) {
       return colors.find((colorObj) => colorObj.id === productColor).value;
+    },
+    isChecked(color, arr, checkColor) {
+      return checkColor !== 0 ? color === checkColor : color === arr[0];
     },
   },
 };
