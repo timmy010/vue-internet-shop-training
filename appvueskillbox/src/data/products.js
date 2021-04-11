@@ -5,6 +5,7 @@ export default [
     title: 'Stels energy 2',
     price: 3690,
     image: '/img/stel-energy-2.jpg',
+    colorsId: [1, 2, 3],
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ export default [
     title: 'Stels pilot 200 gent',
     price: 5600,
     image: '/img/stels-pilot-200-gent.jpg',
+    colorsId: [2, 3, 4],
   },
   {
     id: 3,
@@ -19,6 +21,7 @@ export default [
     title: 'Welt Pony 12',
     price: 4790,
     image: '/img/welt-pony-12.jpg',
+    colorsId: [5, 1, 2],
   },
   {
     id: 4,
@@ -26,6 +29,7 @@ export default [
     title: 'Welt Ridge 1.0 D',
     price: 2780,
     image: '/img/welt-ridge-1-0-D.jpg',
+    colorsId: [1],
   },
   {
     id: 5,
@@ -33,6 +37,7 @@ export default [
     title: 'Welt Ridge 1.0 HD',
     price: 1820,
     image: '/img/Welt-Ridge-1-0-HD.jpg',
+    colorsId: [2],
   },
   {
     id: 6,
@@ -40,6 +45,7 @@ export default [
     title: 'Welt Ridge 1.0 V',
     price: 6900,
     image: '/img/Welt-Ridge-1-0-V.jpg',
+    colorsId: [3],
   },
   {
     id: 7,
@@ -47,6 +53,7 @@ export default [
     title: 'Welt Ridge 2.0 HD',
     price: 6900,
     image: '/img/Welt-Ridge-2-0-HD.jpg',
+    colorsId: [4],
   },
   {
     id: 8,
@@ -54,6 +61,7 @@ export default [
     title: 'Welt dingo 12',
     price: 6900,
     image: '/img/welt-dingo-12.png',
+    colorsId: [2],
   },
   {
     id: 9,
@@ -61,6 +69,7 @@ export default [
     title: 'Welt King Steel one',
     price: 6900,
     image: '/img/Welt-King-Steel-one.png',
+    colorsId: [1, 3],
   },
   {
     id: 10,
@@ -68,6 +77,7 @@ export default [
     title: 'Samurai K-1',
     price: 23414,
     image: '/img/Samurai-K-1.png',
+    colorsId: [2, 3],
   },
   {
     id: 11,
@@ -75,6 +85,7 @@ export default [
     title: 'Samurai KL-1',
     price: 23749,
     image: '/img/Samurai-KL-1.png',
+    colorsId: [4],
   },
   {
     id: 12,
@@ -82,6 +93,7 @@ export default [
     title: 'Samurai S-1',
     price: 22516,
     image: '/img/Samurai-S-1.png',
+    colorsId: [1, 3],
   },
   {
     id: 13,
@@ -89,6 +101,7 @@ export default [
     title: 'Samurai SL-1',
     price: 22926,
     image: '/img/Samurai-SL-1.png',
+    colorsId: [2, 4],
   },
   {
     id: 14,
@@ -96,6 +109,7 @@ export default [
     title: 'Стол 1',
     price: 1250,
     image: '/img/table-1.png',
+    colorsId: [1, 2],
   },
   {
     id: 15,
@@ -103,6 +117,7 @@ export default [
     title: 'Стол 2',
     price: 2900,
     image: '/img/table-2.png',
+    colorsId: [3],
   },
   {
     id: 16,
@@ -110,6 +125,7 @@ export default [
     title: 'Стул 1',
     price: 980,
     image: '/img/chair-1.png',
+    colorsId: [4],
   },
   {
     id: 17,
@@ -117,5 +133,6 @@ export default [
     title: 'Стул 2',
     price: 560,
     image: '/img/chair-2.png',
+    colorsId: [1],
   },
 ];
