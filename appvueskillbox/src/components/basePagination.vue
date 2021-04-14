@@ -4,7 +4,7 @@
       <a
         href="#"
         class="pagination__link pagination__link--arrow"
-        :class="{'pagination__link--disabled':(page - 1) === 0}"
+        :class="{'pagination__link--disabled':page === 1}"
         aria-label="Предыдущая страница"
         @click.prevent="paginate(page - 1)"
       >
@@ -27,7 +27,7 @@
       <a
         href=#
         class="pagination__link pagination__link--arrow"
-        :class="{'pagination__link--disabled':(page + 1) === this.pages + 1}"
+        :class="{'pagination__link--disabled':page === this.pages}"
         aria-label="Следующая страница"
         @click.prevent="paginate(page + 1)"
       >
