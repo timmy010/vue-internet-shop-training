@@ -26,15 +26,15 @@
 export default {
   data() {
     return {
-      currentColorsId: 0,
+      currentColorsId: 1,
     };
   },
-  props: ['colors', 'parentColorsId'],
+  props: ['colors', 'parentCurrentColorsId'],
   watch: {
     currentColorsId(value) {
-      this.$emit('update:parentColorsId', value);
+      this.$emit('update:parentCurrentColorsId', value);
     },
-    parentColorsId(value) {
+    parentCurrentColorsId(value) {
       this.currentColorsId = value;
     },
   },

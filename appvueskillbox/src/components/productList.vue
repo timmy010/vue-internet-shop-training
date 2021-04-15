@@ -5,7 +5,8 @@
       v-for="product in products"
       :key="product.id"
       :product="product"
-      :check-color="filterColor"
+      :colors-id.sync="colorsId"
+      @update:colorsId="$emit('update:colorsId')"
     ></li>
   </ul>
 </template>
@@ -15,6 +16,6 @@ import productItem from './productItem.vue';
 
 export default {
   components: { productItem },
-  props: ['products', 'filterColor'],
+  props: ['products', 'colorsId'],
 };
 </script>

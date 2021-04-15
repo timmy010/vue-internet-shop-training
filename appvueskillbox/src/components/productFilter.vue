@@ -31,7 +31,7 @@
 
       <fieldset class="form__block">
         <legend class="form__legend">Цвет</legend>
-        <baseColors :colors="colors" :parentColorsId.sync="currentColorsId"/>
+        <baseColors :colors="colors" :parentCurrentColorsId.sync="currentColorsId"/>
       </fieldset>
 
       <fieldset class="form__block">
@@ -116,7 +116,7 @@ export default {
       currentPriceFrom: 0,
       currentPriceTo: 0,
       currentCategoryId: 0,
-      currentColorsId: 0,
+      currentColorsId: 1,
     };
   },
   props: ['priceFrom', 'priceTo', 'categoryId', 'colorsId'],
@@ -153,7 +153,7 @@ export default {
       this.$emit('update:priceFrom', 0);
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
-      this.$emit('update:colorsId', 0);
+      this.$emit('update:colorsId', 1);
     },
   },
 };
