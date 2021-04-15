@@ -5,8 +5,8 @@
       v-for="product in products"
       :key="product.id"
       :product="product"
-      :colors-id.sync="colorsId"
-      @update:colorsId="$emit('update:colorsId')"
+      :colors-id="colorsId"
+      @update:colorsId="$emit('update:colorsId', $event)"
     ></li>
   </ul>
 </template>

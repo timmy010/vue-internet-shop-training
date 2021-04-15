@@ -18,7 +18,10 @@
       />
 
       <section class="catalog">
-        <productList :products="products" :colors-id.sync="filterColorsId"/>
+        <productList
+          :products="products"
+          :colors-id.sync="productColorsId"
+        />
         <basePagination v-model="page" :count="countProducts" :per-page="productsPerPage"/>
       </section>
 
@@ -41,6 +44,7 @@ export default {
       filterPriceTo: 0,
       filterCategoryId: 0,
       filterColorsId: 1,
+      productColorsId: 1,
 
       page: 1,
       productsPerPage: 6,

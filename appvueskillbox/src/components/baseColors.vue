@@ -29,12 +29,12 @@ export default {
       currentColorsId: 1,
     };
   },
-  props: ['colors', 'parentCurrentColorsId'],
+  props: ['colors', 'colorsId'],
   watch: {
     currentColorsId(value) {
-      this.$emit('update:parentCurrentColorsId', value);
+      this.$emit('update:colorsId', value);
     },
-    parentCurrentColorsId(value) {
+    colorsId(value) {
       this.currentColorsId = value;
     },
   },

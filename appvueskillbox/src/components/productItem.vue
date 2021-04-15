@@ -32,7 +32,8 @@
       </span>
       <baseColors
         :colors="setProductColors(product.colorsId)"
-        :parentCurrentColorsId.sync="currentColorsId"
+        :colorsId="colorsId"
+        @update:colorsId="$emit('update:colorsId', $event)"
       />
     </li>
   </ul>
@@ -43,21 +44,11 @@ import baseColors from './baseColors.vue';
 import colors from '../data/colors';
 
 export default {
-  data() {
-    return {
-      currentColorsId: 1,
-    };
-  },
   components: { baseColors },
   props: ['product', 'colorsId'],
   computed: {
     colors() {
       return colors;
-    },
-  },
-  watch: {
-    currentColorsId(value) {
-      this.$emit('update:colorsId', value);
     },
   },
   methods: {

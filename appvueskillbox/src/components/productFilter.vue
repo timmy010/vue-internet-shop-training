@@ -31,7 +31,7 @@
 
       <fieldset class="form__block">
         <legend class="form__legend">Цвет</legend>
-        <baseColors :colors="colors" :parentCurrentColorsId.sync="currentColorsId"/>
+        <baseColors :colors="colors" :colorsId.sync="currentColorsId"/>
       </fieldset>
 
       <fieldset class="form__block">
