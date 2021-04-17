@@ -26,16 +26,13 @@
 export default {
   data() {
     return {
-      currentColorsId: 1,
+      currentColorsId: this.colorsId,
     };
   },
   props: ['colors', 'colorsId'],
   watch: {
     currentColorsId(value) {
       this.$emit('update:colorsId', value);
-    },
-    colorsId(value) {
-      this.currentColorsId = value;
     },
   },
 };
