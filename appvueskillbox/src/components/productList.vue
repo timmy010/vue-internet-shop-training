@@ -7,6 +7,7 @@
       :product="product"
       :colors-id="colorsId"
       @update:colorsId="$emit('update:colorsId', $event)"
+      @gotoPage="(pageName, pageParams) => $emit('gotoPage', pageName, pageParams)"
     ></li>
   </ul>
 </template>
