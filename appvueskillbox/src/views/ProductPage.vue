@@ -45,7 +45,12 @@
 
             <fieldset class="form__block">
               <legend class="form__legend">Цвет:</legend>
-              <ul class="colors">
+              <baseColors
+                :colors="colors"
+                :colorsId.sync="localColor"
+                class="productColor"
+              />
+              <!-- <ul class="colors">
                 <li class="colors__item">
                   <label class="colors__label">
                     <input class="colors__radio sr-only" type="radio" name="color-item" value="blue" checked="">
@@ -66,7 +71,7 @@
                     <span class="colors__value" style="background-color: #939393;">
                   </span></label>
                 </li>
-              </ul>
+              </ul> -->
             </fieldset>
 
             <fieldset class="form__block">
@@ -199,8 +204,16 @@ import products from '@/data/products';
 import categories from '@/data/categories';
 import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
+import colors from '@/data/colors';
+import baseColors from '@/components/baseColors.vue';
 
 export default {
+  data() {
+    return {
+      localColor: this.product.colorsId[0],
+    };
+  },
+  components: { baseColors },
   props: ['pageParams'],
   filters: {
     numberFormat,
@@ -212,9 +225,18 @@ export default {
     category() {
       return categories.find((category) => category.id === this.product.categoryId);
     },
+    colors() {
+      return this.product.colorsId.map((c) => colors.find((b) => b.id === c));
+    },
   },
   methods: {
     gotoPage,
   },
 };
 </script>
+
+<style>
+  ul.colors.productColor {
+    --border-color: white;
+  }
+</style>
