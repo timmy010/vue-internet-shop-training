@@ -2,7 +2,6 @@
   <component
     :is="currentPageComponent"
     :page-params="currentPageParams"
-    @gotoPage="(pageName, pageParams) => gotoPage(pageName, pageParams)"
   />
 </template>
 
@@ -10,6 +9,7 @@
 import MainPage from '@/views/MainPage.vue';
 import ProductPage from '@/views/ProductPage.vue';
 import NotFoundPage from '@/views/NotFoundPage.vue';
+import eventBus from '@/eventBus';
 
 const routes = {
   main: 'MainPage',
@@ -36,5 +36,8 @@ export default {
     },
   },
   components: { MainPage, ProductPage, NotFoundPage },
+  created() {
+    eventBus.$on('gotoPage', (pageName, pageParams) => this.gotoPage(pageName, pageParams));
+  },
 };
 </script>

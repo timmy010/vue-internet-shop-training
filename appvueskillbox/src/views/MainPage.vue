@@ -21,7 +21,6 @@
         <productList
           :products="products"
           :colors-id.sync="productColorsId"
-          @gotoPage="(pageName, pageParams) => $emit('gotoPage', pageName, pageParams)"
         />
         <basePagination v-model="page" :count="countProducts" :per-page="productsPerPage"/>
       </section>

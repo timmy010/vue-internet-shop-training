@@ -1,7 +1,7 @@
 <template>
   <ul class="catalog__list">
     <li class="catalog__item">
-      <a class="catalog__pic" href="#" @click.prevent="$emit('gotoPage', 'product', {id: product.id})">
+      <a class="catalog__pic" href="#" @click.prevent="gotoPage('product', {id: product.id})">
         <img :src="product.image" alt="Название товара">
       </a>
       <h3 class="catalog__title">
@@ -22,14 +22,20 @@
 </template>
 
 <script>
-import baseColors from './baseColors.vue';
-import colors from '../data/colors';
+import baseColors from '@/components/baseColors.vue';
+import colors from '@/data/colors';
+import eventBus from '@/eventBus';
 
 export default {
   data() {
     return {
       localColor: this.product.colorsId[0],
     };
+  },
+  methods: {
+    gotoPage(pageName, pageParams) {
+      eventBus.$emit('gotoPage', pageName, pageParams);
+    },
   },
   components: { baseColors },
   props: ['product', 'colorsId'],
