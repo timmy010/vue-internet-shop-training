@@ -10,7 +10,7 @@
         </a>
       </h3>
       <span class="catalog__price">
-        {{ product.price }} ₽
+        {{ product.price | numberFormat}} ₽
       </span>
       <baseColors
         :colors="colors"
@@ -24,7 +24,8 @@
 <script>
 import baseColors from '@/components/baseColors.vue';
 import colors from '@/data/colors';
-import eventBus from '@/eventBus';
+import gotoPage from '@/helpers/gotoPage';
+import numberFormat from '@/helpers/numberFormat';
 
 export default {
   data() {
@@ -33,12 +34,13 @@ export default {
     };
   },
   methods: {
-    gotoPage(pageName, pageParams) {
-      eventBus.$emit('gotoPage', pageName, pageParams);
-    },
+    gotoPage,
   },
   components: { baseColors },
   props: ['product', 'colorsId'],
+  filters: {
+    numberFormat,
+  },
   computed: {
     colors() {
       return this.product.colorsId.map((c) => colors.find((b) => b.id === c));
