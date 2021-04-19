@@ -20,7 +20,6 @@
       <section class="catalog">
         <productList
           :products="products"
-          :colors-id.sync="productColorsId"
         />
         <basePagination v-model="page" :count="countProducts" :per-page="productsPerPage"/>
       </section>

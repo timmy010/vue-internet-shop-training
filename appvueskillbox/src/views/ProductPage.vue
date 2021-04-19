@@ -50,28 +50,6 @@
                 :colorsId.sync="localColor"
                 class="productColor"
               />
-              <!-- <ul class="colors">
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input class="colors__radio sr-only" type="radio" name="color-item" value="blue" checked="">
-                    <span class="colors__value" style="background-color: #73B6EA;">
-                    </span>
-                  </label>
-                </li>
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input class="colors__radio sr-only" type="radio" name="color-item" value="yellow">
-                    <span class="colors__value" style="background-color: #FFBE15;">
-                    </span>
-                  </label>
-                </li>
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input class="colors__radio sr-only" type="radio" name="color-item" value="gray">
-                    <span class="colors__value" style="background-color: #939393;">
-                  </span></label>
-                </li>
-              </ul> -->
             </fieldset>
 
             <fieldset class="form__block">
@@ -202,17 +180,12 @@
 <script>
 import products from '@/data/products';
 import categories from '@/data/categories';
+import colors from '@/data/colors';
 import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
-import colors from '@/data/colors';
 import baseColors from '@/components/baseColors.vue';
 
 export default {
-  data() {
-    return {
-      localColor: this.product.colorsId[0],
-    };
-  },
   components: { baseColors },
   props: ['pageParams'],
   filters: {
@@ -227,6 +200,9 @@ export default {
     },
     colors() {
       return this.product.colorsId.map((c) => colors.find((b) => b.id === c));
+    },
+    localColor() {
+      return this.product.colorsId[0];
     },
   },
   methods: {

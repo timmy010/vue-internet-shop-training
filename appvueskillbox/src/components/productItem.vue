@@ -37,7 +37,7 @@ export default {
     gotoPage,
   },
   components: { baseColors },
-  props: ['product', 'colorsId'],
+  props: ['product'],
   filters: {
     numberFormat,
   },
