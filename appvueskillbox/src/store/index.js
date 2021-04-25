@@ -10,8 +10,20 @@ export default new Vuex.Store({
     cartProducts: [
       { productId: 1, amount: 2 },
     ],
+    amount: 1,
   },
   mutations: {
+    updateAmount(state, amount) {
+      state.amount = amount;
+    },
+    incrementAmount(state) {
+      state.amount += 1;
+    },
+    decrementAmount(state) {
+      if (state.amount > 1) {
+        state.amount -= 1;
+      }
+    },
     addProductToCart(state, { productId, amount }) {
       const item = state.cartProducts.find((product) => product.productId === productId);
       if (item) {

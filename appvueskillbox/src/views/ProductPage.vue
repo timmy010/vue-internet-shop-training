@@ -52,53 +52,8 @@
               />
             </fieldset>
 
-            <fieldset class="form__block">
-              <legend class="form__legend">Объемб в ГБ:</legend>
-
-              <ul class="sizes sizes--primery">
-                <li class="sizes__item">
-                  <label class="sizes__label">
-                    <input class="sizes__radio sr-only" type="radio" name="sizes-item" value="32">
-                    <span class="sizes__value">
-                      32gb
-                    </span>
-                  </label>
-                </li>
-                <li class="sizes__item">
-                  <label class="sizes__label">
-                    <input class="sizes__radio sr-only" type="radio" name="sizes-item" value="64">
-                    <span class="sizes__value">
-                      64gb
-                    </span>
-                  </label>
-                </li>
-                <li class="sizes__item">
-                  <label class="sizes__label">
-                    <input class="sizes__radio sr-only" type="radio" name="sizes-item" value="128" checked="">
-                    <span class="sizes__value">
-                      128gb
-                    </span>
-                  </label>
-                </li>
-              </ul>
-            </fieldset>
-
             <div class="item__row">
-              <div class="form__counter">
-                <button type="button" aria-label="Убрать один товар">
-                  <svg width="12" height="12" fill="currentColor">
-                    <use xlink:href="#icon-minus"></use>
-                  </svg>
-                </button>
-
-                <input type="text" v-model.number="productAmount">
-
-                <button type="button" aria-label="Добавить один товар">
-                  <svg width="12" height="12" fill="currentColor">
-                    <use xlink:href="#icon-plus"></use>
-                  </svg>
-                </button>
-              </div>
+              <baseCounter/>
 
               <button class="button button--primery" type="submit">
                 В корзину
@@ -184,18 +139,21 @@ import colors from '@/data/colors';
 import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
 import baseColors from '@/components/baseColors.vue';
+import baseCounter from '@/components/baseCounter.vue';
+import { mapGetters } from 'vuex';
 
 export default {
-  data() {
-    return {
-      productAmount: 1,
-    };
-  },
-  components: { baseColors },
+  components: { baseColors, baseCounter },
   filters: {
     numberFormat,
   },
   computed: {
+    ...mapGetters({
+      products: 'cartDetailProducts',
+    }),
+    productAmount() {
+      return this.$store.state.amount;
+    },
     product() {
       return products.find((product) => product.id === +this.$route.params.id);
     },
