@@ -8,7 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     cartProducts: [
-      { productId: 1, amount: 2 },
+      { productId: 1, amount: 1 },
     ],
     amount: 1,
   },
@@ -47,6 +47,9 @@ export default new Vuex.Store({
     },
   },
   getters: {
+    cartProductLength(state) {
+      return state.cartProducts.length;
+    },
     cartDetailProducts(state) {
       return state.cartProducts.map((item) => {
         const obj = {

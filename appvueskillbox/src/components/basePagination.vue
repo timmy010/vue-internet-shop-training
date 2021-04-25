@@ -45,7 +45,11 @@ export default {
     prop: 'page',
     event: 'paginate',
   },
-  props: ['page', 'count', 'perPage'],
+  props: {
+    page: Number,
+    count: Number,
+    perPage: Number,
+  },
   computed: {
     pages() {
       return Math.ceil(this.count / this.perPage);

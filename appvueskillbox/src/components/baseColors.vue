@@ -29,7 +29,10 @@ export default {
       currentColorsId: this.colorsId,
     };
   },
-  props: ['colors', 'colorsId'],
+  props: {
+    colors: Array,
+    colorsId: Number,
+  },
   watch: {
     currentColorsId(value) {
       this.$emit('update:colorsId', value);

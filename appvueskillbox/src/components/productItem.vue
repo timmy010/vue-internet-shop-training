@@ -37,7 +37,9 @@ export default {
     gotoPage,
   },
   components: { baseColors },
-  props: ['product'],
+  props: {
+    product: Object,
+  },
   filters: {
     numberFormat,
   },
@@ -50,7 +52,7 @@ export default {
 </script>
 
 <style>
-  ul.colors.productColor {
+  .catalog li.colors__item {
     --border-color: black;
   }
 </style>

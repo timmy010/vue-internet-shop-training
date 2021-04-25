@@ -180,7 +180,7 @@ export default {
 </script>
 
 <style>
-  ul.colors.productColor {
+  li.colors__item {
     --border-color: white;
   }
 </style>
