@@ -1,6 +1,6 @@
 <template>
   <div class="product__counter form__counter">
-    <button type="button" aria-label="Убрать один товар" @click.prevent="decrement">
+    <button type="button" aria-label="Убрать один товар" @click.prevent="baseAmount--">
       <svg width="10" height="10" fill="currentColor">
         <use xlink:href="#icon-minus"></use>
       </svg>
@@ -8,7 +8,7 @@
 
     <input type="text" v-model.number="baseAmount" name="count">
 
-    <button type="button" aria-label="Добавить один товар"  @click.prevent="increment">
+    <button type="button" aria-label="Добавить один товар"  @click.prevent="baseAmount++">
       <svg width="10" height="10" fill="currentColor">
         <use xlink:href="#icon-plus"></use>
       </svg>
@@ -17,24 +17,21 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 export default {
+  props: {
+    amount: Number,
+  },
   computed: {
     baseAmount: {
       get() {
-        return this.$store.state.amount;
+        return this.amount;
       },
       set(value) {
-        this.$store.commit('updateAmount', value);
+        if (value > 0) {
+          this.$emit('update:amount', value);
+        }
       },
     },
-  },
-  methods: {
-    ...mapMutations({
-      increment: 'incrementAmount',
-      decrement: 'decrementAmount',
-    }),
   },
 };
 </script>

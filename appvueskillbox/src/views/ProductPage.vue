@@ -53,7 +53,7 @@
             </fieldset>
 
             <div class="item__row">
-              <baseCounter/>
+              <baseCounter :amount.sync="currentAmount"/>
 
               <button class="button button--primery" type="submit">
                 В корзину
@@ -143,6 +143,11 @@ import baseCounter from '@/components/baseCounter.vue';
 import { mapGetters } from 'vuex';
 
 export default {
+  data() {
+    return {
+      currentAmount: 1,
+    };
+  },
   components: { baseColors, baseCounter },
   filters: {
     numberFormat,
@@ -152,7 +157,7 @@ export default {
       products: 'cartDetailProducts',
     }),
     productAmount() {
-      return this.$store.state.amount;
+      return this.currentAmount;
     },
     product() {
       return products.find((product) => product.id === +this.$route.params.id);
@@ -172,7 +177,7 @@ export default {
     addToCart() {
       this.$store.commit(
         'addProductToCart',
-        { productId: this.product.id, amount: this.productAmount },
+        { productId: this.product.id, amount: this.currentAmount },
       );
     },
   },
