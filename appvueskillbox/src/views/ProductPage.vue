@@ -180,6 +180,14 @@ export default {
         { productId: this.product.id, amount: this.currentAmount },
       );
     },
+    routeReplace() {
+      if (!this.product) {
+        this.$router.replace({ name: 'notFound' });
+      }
+    },
+  },
+  watch: {
+    '$route.params.id': 'routeReplace',
   },
 };
 </script>
