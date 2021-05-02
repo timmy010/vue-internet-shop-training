@@ -105,8 +105,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+import API_BASE_URL from '@/config';
 import baseColors from './baseColors.vue';
-import categories from '../data/categories';
 import colors from '../data/colors';
 
 export default {
@@ -117,12 +118,14 @@ export default {
       currentPriceTo: 0,
       currentCategoryId: 0,
       currentColorsId: 1,
+
+      categoriesData: null,
     };
   },
   props: ['priceFrom', 'priceTo', 'categoryId', 'colorsId'],
   computed: {
     categories() {
-      return categories;
+      return this.categoriesData ? this.categoriesData.items : [];
     },
     colors() {
       return colors;
@@ -155,6 +158,15 @@ export default {
       this.$emit('update:categoryId', 0);
       this.$emit('update:colorsId', 1);
     },
+    loadCategories() {
+      axios.get(`${API_BASE_URL}/api/productCategories`)
+        .then((response) => {
+          this.categoriesData = response.data;
+        });
+    },
+  },
+  created() {
+    this.loadCategories();
   },
 };
 </script>

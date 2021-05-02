@@ -12,17 +12,17 @@
       <span class="catalog__price">
         {{ product.price | numberFormat}} ₽
       </span>
-      <baseColors
+      <!-- <baseColors
         :colors="colors"
         :colorsId.sync="localColor"
         class="productColor"
-      />
+      /> -->
     </li>
   </ul>
 </template>
 
 <script>
-import baseColors from '@/components/baseColors.vue';
+// import baseColors from '@/components/baseColors.vue';
 import colors from '@/data/colors';
 import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
@@ -30,13 +30,13 @@ import numberFormat from '@/helpers/numberFormat';
 export default {
   data() {
     return {
-      localColor: this.product.colorsId[0],
+      // localColor: this.product.colorsId[0],
     };
   },
   methods: {
     gotoPage,
   },
-  components: { baseColors },
+  // components: { baseColors },
   props: {
     product: Object,
   },

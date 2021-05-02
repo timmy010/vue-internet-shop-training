@@ -5,7 +5,6 @@
       v-for="product in products"
       :key="product.id"
       :product="product"
-      @update:colorsId="$emit('update:colorsId', $event)"
     ></li>
   </ul>
 </template>

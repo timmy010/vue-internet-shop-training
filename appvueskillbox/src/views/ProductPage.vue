@@ -1,5 +1,7 @@
 <template>
-  <main class="content container">
+  <main class="content container" v-if="productLoading">Загрузка товара...</main>
+  <main class="content container" v-else-if="productLoadingFailed">Не удалось загрузить товар</main>
+  <main class="content container" v-else>
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
@@ -26,7 +28,7 @@
           <img
             width="570"
             height="570"
-            :src="product.image"
+            :src="product.image.file.url"
             :alt="product.title"
           >
         </div>
@@ -55,10 +57,14 @@
             <div class="item__row">
               <baseCounter :amount.sync="currentAmount"/>
 
-              <button class="button button--primery" type="submit">
+              <button class="button button--primery" type="submit" :disabled="productAddSending">
                 В корзину
               </button>
             </div>
+
+            <div v-if="productAdded">Товар добавлен в корзину</div>
+            <div v-if="productAddSending">Добавляем товар в корзину...</div>
+
           </form>
         </div>
       </div>
@@ -133,19 +139,26 @@
 </template>
 
 <script>
-import products from '@/data/products';
-import categories from '@/data/categories';
-import colors from '@/data/colors';
+import axios from 'axios';
+import API_BASE_URL from '@/config';
 import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
 import baseColors from '@/components/baseColors.vue';
 import baseCounter from '@/components/baseCounter.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   data() {
     return {
       currentAmount: 1,
+
+      productData: null,
+
+      productLoading: false,
+      productLoadingFailed: false,
+
+      productAdded: false,
+      productAddSending: false,
     };
   },
   components: { baseColors, baseCounter },
@@ -160,34 +173,49 @@ export default {
       return this.currentAmount;
     },
     product() {
-      return products.find((product) => product.id === +this.$route.params.id);
+      return this.productData;
     },
     category() {
-      return categories.find((category) => category.id === this.product.categoryId);
+      return this.productData.category.id;
     },
     colors() {
-      return this.product.colorsId.map((c) => colors.find((b) => b.id === c));
+      return this.productData.colors;
     },
     localColor() {
-      return this.product.colorsId[0];
+      return this.productData.colors[0].id;
     },
   },
   methods: {
+    ...mapActions(['addProductToCart']),
     gotoPage,
     addToCart() {
-      this.$store.commit(
-        'addProductToCart',
-        { productId: this.product.id, amount: this.currentAmount },
-      );
+      this.productAdded = false;
+      this.productAddSending = true;
+
+      this.addProductToCart({ productId: this.product.id, amount: this.currentAmount })
+        .then(() => {
+          this.productAdded = true;
+          this.productAddSending = false;
+        });
     },
-    routeReplace() {
-      if (!this.product) {
-        this.$router.replace({ name: 'notFound' });
-      }
+    loadProduct() {
+      this.productLoading = true;
+      this.productLoadingFailed = false;
+      axios.get(`${API_BASE_URL}/api/products/${this.$route.params.id}`)
+        .then((response) => {
+          this.productData = response.data;
+        })
+        .catch(() => { this.productLoadingFailed = true; })
+        .then(() => { this.productLoading = false; });
     },
   },
   watch: {
-    '$route.params.id': 'routeReplace',
+    '$route.params.id': {
+      handler() {
+        this.loadProduct();
+      },
+      immediate: true,
+    },
   },
 };
 </script>

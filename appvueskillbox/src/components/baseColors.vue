@@ -8,13 +8,13 @@
       <label class="colors__label">
         <input
           class="colors__radio sr-only"
-          type="radio" name="color"
+          type="radio"
           :value="color.id"
           v-model.number="currentColorsId"
         >
         <span
           class="colors__value"
-          :style="{ backgroundColor: color.value }"
+          :style="{ backgroundColor: color.code }"
         >
         </span>
       </label>
