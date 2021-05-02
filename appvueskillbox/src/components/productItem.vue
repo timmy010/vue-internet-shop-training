@@ -12,41 +12,35 @@
       <span class="catalog__price">
         {{ product.price | numberFormat}} ₽
       </span>
-      <!-- <baseColors
-        :colors="colors"
+      <baseColors
+        :colors="product.colors"
         :colorsId.sync="localColor"
         class="productColor"
-      /> -->
+      />
     </li>
   </ul>
 </template>
 
 <script>
-// import baseColors from '@/components/baseColors.vue';
-import colors from '@/data/colors';
+import baseColors from '@/components/baseColors.vue';
 import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
 
 export default {
   data() {
     return {
-      // localColor: this.product.colorsId[0],
+      localColor: this.product.colors[0].id,
     };
   },
   methods: {
     gotoPage,
   },
-  // components: { baseColors },
+  components: { baseColors },
   props: {
     product: Object,
   },
   filters: {
     numberFormat,
-  },
-  computed: {
-    colors() {
-      return this.product.colorsId.map((c) => colors.find((b) => b.id === c));
-    },
   },
 };
 </script>
