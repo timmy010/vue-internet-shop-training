@@ -13,8 +13,13 @@ export default new Vuex.Store({
 
     userAccessKey: null,
     cartProductsData: null,
+
+    isCartLoading: false,
   },
   mutations: {
+    updateCartLoading(state, value) {
+      state.isCartLoading = value;
+    },
     updateFilterColorId(state, colorId) {
       state.filterColorsId = colorId;
     },
@@ -67,20 +72,43 @@ export default new Vuex.Store({
   },
   actions: {
     loadCart(context) {
-      return axios.get(`${API_BASE_URL}/api/baskets`, {
-        params: {
-          userAccessKey: context.state.userAccessKey,
-        },
-      })
-        .then((response) => {
-          if (!context.state.userAccessKey) {
-            localStorage.setItem('userAccessKey', response.data.user.accessKey);
-            context.commit('updateUserAccessKey', response.data.user.accessKey);
-          }
-          context.commit('updateCartProductsData', response.data.items);
-          context.commit('syncCartProducts');
+      context.commit('updateCartLoading', true);
+
+      return (new Promise((resolve) => setTimeout(resolve, 3000)))
+        .then(() => {
+          axios.get(`${API_BASE_URL}/api/baskets`, {
+            params: {
+              userAccessKey: context.state.userAccessKey,
+            },
+          })
+            .then((response) => {
+              if (!context.state.userAccessKey) {
+                localStorage.setItem('userAccessKey', response.data.user.accessKey);
+                context.commit('updateUserAccessKey', response.data.user.accessKey);
+              }
+              context.commit('updateCartProductsData', response.data.items);
+              context.commit('syncCartProducts');
+            })
+            .then(() => context.commit('updateCartLoading', false));
         });
     },
+    // loadCart(context) {
+    //   context.commit('updateCartLoading', true);
+    //   return axios.get(`${API_BASE_URL}/api/baskets`, {
+    //     params: {
+    //       userAccessKey: context.state.userAccessKey,
+    //     },
+    //   })
+    //     .then((response) => {
+    //       if (!context.state.userAccessKey) {
+    //         localStorage.setItem('userAccessKey', response.data.user.accessKey);
+    //         context.commit('updateUserAccessKey', response.data.user.accessKey);
+    //       }
+    //       context.commit('updateCartProductsData', response.data.items);
+    //       context.commit('syncCartProducts');
+    //     })
+    //     .then(() => context.commit('updateCartLoading', false));
+    // },
     addProductToCart(context, { productId, amount }) {
       return (new Promise((resolve) => setTimeout(resolve, 3000)))
         .then(() => {

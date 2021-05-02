@@ -23,6 +23,7 @@
     </div>
 
     <section class="cart">
+      <baseLoader v-if="this.$store.state.isCartLoading" text="Секунду, загружаем Вашу корзину"/>
       <form class="cart__form form" action="#" method="POST">
         <div class="cart__field">
           <ul class="cart__list">
@@ -34,7 +35,7 @@
           </ul>
         </div>
 
-        <div class="cart__block">
+        <div class="cart__block" v-if="!this.$store.state.isCartLoading">
           <p class="cart__desc">
             Мы&nbsp;посчитаем стоимость доставки на&nbsp;следующем этапе
           </p>
@@ -54,10 +55,11 @@
 <script>
 import numberFormat from '@/helpers/numberFormat';
 import cartItem from '@/components/cartItem.vue';
+import baseLoader from '@/components/baseLoader.vue';
 import { mapGetters } from 'vuex';
 
 export default {
-  components: { cartItem },
+  components: { cartItem, baseLoader },
   filters: {
     numberFormat,
   },
@@ -70,3 +72,11 @@ export default {
   },
 };
 </script>
+
+<style>
+  .container[data-v-fa08e358] {
+    width: unset;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>

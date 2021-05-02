@@ -12,7 +12,8 @@
           8 800 600 90 09
         </a>
 
-        <cartIndicator/>
+        <cartIndicator v-if="!this.$store.state.isCartLoading"/>
+        <miniLoader v-if="this.$store.state.isCartLoading"/>
       </div>
     </header>
 
@@ -115,11 +116,12 @@
 
 <script>
 import cartIndicator from '@/components/cartIndicator.vue';
+import miniLoader from '@/components/miniLoader.vue';
 import { mapActions, mapMutations } from 'vuex';
 
 export default {
   name: 'app',
-  components: { cartIndicator },
+  components: { cartIndicator, miniLoader },
   methods: {
     ...mapActions(['loadCart']),
     ...mapMutations(['updateUserAccessKey']),
