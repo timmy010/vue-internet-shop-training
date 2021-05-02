@@ -108,6 +108,9 @@ export default {
     filterCategoryId() {
       this.loadProducts();
     },
+    filterColorsId() {
+      this.loadProducts();
+    },
   },
   created() {
     this.loadProducts();

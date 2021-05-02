@@ -108,7 +108,6 @@
 import axios from 'axios';
 import API_BASE_URL from '@/config';
 import baseColors from './baseColors.vue';
-import colors from '../data/colors';
 
 export default {
   components: { baseColors },
@@ -120,6 +119,7 @@ export default {
       currentColorsId: 1,
 
       categoriesData: null,
+      colorsData: null,
     };
   },
   props: ['priceFrom', 'priceTo', 'categoryId', 'colorsId'],
@@ -128,7 +128,7 @@ export default {
       return this.categoriesData ? this.categoriesData.items : [];
     },
     colors() {
-      return colors;
+      return this.colorsData ? this.colorsData.items : [];
     },
   },
   watch: {
@@ -164,9 +164,16 @@ export default {
           this.categoriesData = response.data;
         });
     },
+    loadColors() {
+      axios.get(`${API_BASE_URL}/api/colors`)
+        .then((response) => {
+          this.colorsData = response.data;
+        });
+    },
   },
   created() {
     this.loadCategories();
+    this.loadColors();
   },
 };
 </script>
