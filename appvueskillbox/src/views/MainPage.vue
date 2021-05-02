@@ -18,11 +18,9 @@
       />
 
       <section class="catalog">
-        <div v-if="productsLoading">Загрузка товаров...</div>
-        <div v-if="productsLoadingFailed">
-          Произошла ошибка при загрузке товаров
-          <button @click="loadProducts">Попробовать еще раз</button>
-        </div>
+        <baseLoader v-if="productsLoading" text="Секунду, загружаем товары..."/>
+        <baseErrorLoad v-if="productsLoadingFailed" @loadSmth="this.loadProducts"/>
+
         <productList
           :products="products"
         />
@@ -37,17 +35,20 @@
 import productFilter from '@/components/productFilter.vue';
 import productList from '@/components/productList.vue';
 import basePagination from '@/components/basePagination.vue';
+import baseLoader from '@/components/baseLoader.vue';
+import baseErrorLoad from '@/components/baseErrorLoad.vue';
 import axios from 'axios';
 import API_BASE_URL from '@/config';
 
 export default {
-  components: { productFilter, productList, basePagination },
+  components: {
+    productFilter, productList, basePagination, baseLoader, baseErrorLoad,
+  },
   data() {
     return {
       filterPriceFrom: 0,
       filterPriceTo: 0,
       filterCategoryId: 0,
-      // filterColorsId: 0,
       productColorsId: 1,
 
       page: 1,

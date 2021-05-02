@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import API_BASE_URL from '@/config';
-// import products from '@/data/products';
 
 Vue.use(Vuex);
 
@@ -83,19 +82,36 @@ export default new Vuex.Store({
         });
     },
     addProductToCart(context, { productId, amount }) {
-      return axios.post(`${API_BASE_URL}/api/baskets/products`, {
-        productId,
-        quantity: amount,
-      }, {
-        params: {
-          userAccessKey: context.state.userAccessKey,
-        },
-      })
-        .then((response) => {
-          context.commit('updateCartProductsData', response.data.items);
-          context.commit('syncCartProducts');
+      return (new Promise((resolve) => setTimeout(resolve, 3000)))
+        .then(() => {
+          axios.post(`${API_BASE_URL}/api/baskets/products`, {
+            productId,
+            quantity: amount,
+          }, {
+            params: {
+              userAccessKey: context.state.userAccessKey,
+            },
+          })
+            .then((response) => {
+              context.commit('updateCartProductsData', response.data.items);
+              context.commit('syncCartProducts');
+            });
         });
     },
+    // addProductToCart(context, { productId, amount }) {
+    //   return axios.post(`${API_BASE_URL}/api/baskets/products`, {
+    //     productId,
+    //     quantity: amount,
+    //   }, {
+    //     params: {
+    //       userAccessKey: context.state.userAccessKey,
+    //     },
+    //   })
+    //     .then((response) => {
+    //       context.commit('updateCartProductsData', response.data.items);
+    //       context.commit('syncCartProducts');
+    //     });
+    // },
     updateCartProductAmount(context, { productId, amount }) {
       context.commit('updateCartProductAmount', { productId, amount });
 

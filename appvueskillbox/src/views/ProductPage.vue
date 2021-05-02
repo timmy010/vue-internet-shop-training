@@ -1,6 +1,6 @@
 <template>
-  <main class="content container" v-if="productLoading">Загрузка товара...</main>
-  <main class="content container" v-else-if="productLoadingFailed">Не удалось загрузить товар</main>
+  <baseLoader v-if="productLoading" text="Загрузка товара..."/>
+  <baseErrorLoad v-else-if="productLoadingFailed" @loadSmth="this.loadProduct"/>
   <main class="content container" v-else>
     <div class="content__top">
       <ul class="breadcrumbs">
@@ -62,8 +62,8 @@
               </button>
             </div>
 
-            <div v-if="productAdded">Товар добавлен в корзину</div>
-            <div v-if="productAddSending">Добавляем товар в корзину...</div>
+            <div class="product-add-text" v-if="productAdded">Товар добавлен в корзину</div>
+            <baseLoader v-if="productAddSending" text="Добавляем товар в корзину..."/>
 
           </form>
         </div>
@@ -145,6 +145,8 @@ import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
 import baseColors from '@/components/baseColors.vue';
 import baseCounter from '@/components/baseCounter.vue';
+import baseLoader from '@/components/baseLoader.vue';
+import baseErrorLoad from '@/components/baseErrorLoad.vue';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -161,7 +163,9 @@ export default {
       productAddSending: false,
     };
   },
-  components: { baseColors, baseCounter },
+  components: {
+    baseColors, baseCounter, baseLoader, baseErrorLoad,
+  },
   filters: {
     numberFormat,
   },
@@ -223,5 +227,13 @@ export default {
 <style>
   li.colors__item {
     --border-color: white;
+  }
+  .loader .container {
+    min-height: unset;
+    margin: unset;
+  }
+  .product-add-text {
+    margin-top: 35px;
+    font-size: 1.3em;
   }
 </style>
