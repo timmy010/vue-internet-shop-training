@@ -106,6 +106,7 @@
 
 <script>
 import axios from 'axios';
+import { mapMutations } from 'vuex';
 import API_BASE_URL from '@/config';
 import baseColors from './baseColors.vue';
 
@@ -116,7 +117,7 @@ export default {
       currentPriceFrom: 0,
       currentPriceTo: 0,
       currentCategoryId: 0,
-      currentColorsId: 1,
+      currentColorsId: 0,
 
       categoriesData: null,
       colorsData: null,
@@ -146,17 +147,18 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(['updateFilterColorId']),
     submit() {
       this.$emit('update:priceFrom', this.currentPriceFrom);
       this.$emit('update:priceTo', this.currentPriceTo);
       this.$emit('update:categoryId', this.currentCategoryId);
-      this.$emit('update:colorsId', this.currentColorsId);
+      this.updateFilterColorId(this.currentColorsId);
     },
     reset() {
       this.$emit('update:priceFrom', 0);
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
-      this.$emit('update:colorsId', 1);
+      this.updateFilterColorId(0);
     },
     loadCategories() {
       axios.get(`${API_BASE_URL}/api/productCategories`)

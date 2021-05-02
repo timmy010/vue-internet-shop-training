@@ -27,10 +27,15 @@ import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
 
 export default {
-  data() {
-    return {
-      localColor: this.product.colors[0].id,
-    };
+  computed: {
+    localColor: {
+      get() {
+        return this.$store.state.filterColorsId === 0 ? this.product.colors[0].id : this.$store.state.filterColorsId;
+      },
+      set(value) {
+        return value;
+      },
+    },
   },
   methods: {
     gotoPage,

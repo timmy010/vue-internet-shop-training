@@ -47,7 +47,7 @@ export default {
       filterPriceFrom: 0,
       filterPriceTo: 0,
       filterCategoryId: 0,
-      filterColorsId: 1,
+      // filterColorsId: 0,
       productColorsId: 1,
 
       page: 1,
@@ -60,6 +60,9 @@ export default {
     };
   },
   computed: {
+    filterColorsId() {
+      return this.$store.state.filterColorsId;
+    },
     products() {
       return this.productsData
         ? this.productsData.items.map((product) => ({
@@ -83,6 +86,7 @@ export default {
             page: this.page,
             limit: this.productsPerPage,
             categoryId: this.filterCategoryId,
+            colorId: this.filterColorsId,
             minPrice: this.filterPriceFrom,
             maxPrice: this.filterPriceTo,
           },
