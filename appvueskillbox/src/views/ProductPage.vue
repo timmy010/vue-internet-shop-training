@@ -185,8 +185,13 @@ export default {
     colors() {
       return this.productData.colors;
     },
-    localColor() {
-      return this.productData.colors[0].id;
+    localColor: {
+      get() {
+        return this.productData.colors[0].id;
+      },
+      set(value) {
+        return value;
+      },
     },
   },
   methods: {
