@@ -32,7 +32,7 @@
 <script>
 import numberFormat from '@/helpers/numberFormat';
 import baseCounter from '@/components/baseCounter.vue';
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   props: {
@@ -53,8 +53,8 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({
-      deleteProduct: 'deleteCartProduct',
+    ...mapActions({
+      deleteProduct: 'deleteProductFromCart',
     }),
   },
 };
