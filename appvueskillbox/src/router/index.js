@@ -4,6 +4,8 @@ import MainPage from '@/views/MainPage.vue';
 import ProductPage from '@/views/ProductPage.vue';
 import NotFoundPage from '@/views/NotFoundPage.vue';
 import CartPage from '@/views/CartPage.vue';
+import OrderPage from '@/views/OrderPage.vue';
+import OrderInfoPage from '@/views/OrderInfoPage.vue';
 
 Vue.use(VueRouter);
 
@@ -21,7 +23,17 @@ const routes = [
   {
     name: 'cart',
     component: CartPage,
-    path: '/cart/',
+    path: '/cart',
+  },
+  {
+    name: 'order',
+    component: OrderPage,
+    path: '/order',
+  },
+  {
+    name: 'orderInfo',
+    component: OrderInfoPage,
+    path: '/order/:id',
   },
   {
     name: 'notFound',
