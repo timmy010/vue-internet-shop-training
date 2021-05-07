@@ -11,7 +11,7 @@
         </li>
         <li class="breadcrumbs__item">
           <router-link class="breadcrumbs__link" :to="{name: 'main'}">
-            {{ category.title }}
+            {{ product.category.title }}
           </router-link>
         </li>
         <li class="breadcrumbs__item">

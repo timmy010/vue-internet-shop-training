@@ -23,11 +23,13 @@
         Корзина
       </h1>
       <span class="content__info">
-        {{ this.cartLength }} товара
+        3 товара
       </span>
     </div>
 
-    <section class="cart">
+    <baseLoader v-if="this.isOrderSending" text="Отправляем заказ на сервер..."/>
+
+    <section class="cart" v-if="!this.isOrderSending">
       <form class="cart__form form" action="#" method="POST" @submit.prevent="order">
         <div class="cart__field">
           <div class="cart__data">
@@ -106,22 +108,12 @@
             </ul>
           </div>
         </div>
-
         <div class="cart__block">
-          <ul class="cart__orders">
-            <li
-              class="cart__order"
-              v-for="product in this.products"
-              :key="product.product.productId"
-            >
-              <h3>{{ product.product.title }}</h3>
-              <b>{{ product.product.price | numberFormat }} ₽</b>
-              <span>Артикул: {{ product.product.id }}</span>
-            </li>
-          </ul>
+          <orderInfoProducts :products="this.cartDetailProducts"/>
           <div class="cart__total">
             <p>Доставка: <b>500 ₽</b></p>
-            <p>Итого: <b>{{ this.cartLength }}</b> товара на сумму <b>{{ this.totalPrice | numberFormat }} ₽</b></p>
+            <p>Итого: <b>{{ this.cartProductLength }}</b> товара
+             на сумму <b>{{ this.cartTotalPrice | numberFormat }} ₽</b></p>
           </div>
 
           <button class="cart__button button button--primery" type="submit">
@@ -142,9 +134,11 @@
 <script>
 import baseFormText from '@/components/baseFormText.vue';
 import baseFormTextarea from '@/components/baseFormTextarea.vue';
-import numberFormat from '@/helpers/numberFormat';
+import orderInfoProducts from '@/components/orderInfoProducts.vue';
+import baseLoader from '@/components/baseLoader.vue';
 import API_BASE_URL from '@/config';
 import axios from 'axios';
+import numberFormat from '@/helpers/numberFormat';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -153,15 +147,14 @@ export default {
       formData: {},
       formError: {},
       formErrorMessage: '',
+      isOrderSending: false,
     };
   },
-  components: { baseFormText, baseFormTextarea },
   computed: {
-    ...mapGetters({
-      products: 'cartDetailProducts',
-      cartLength: 'cartProductLength',
-      totalPrice: 'cartTotalPrice',
-    }),
+    ...mapGetters(['cartDetailProducts', 'cartTotalPrice', 'cartProductLength']),
+  },
+  components: {
+    baseFormText, baseFormTextarea, orderInfoProducts, baseLoader,
   },
   filters: {
     numberFormat,
@@ -170,23 +163,27 @@ export default {
     order() {
       this.formError = {};
       this.formErrorMessage = '';
-
-      axios.post(`${API_BASE_URL}/api/orders`, {
-        ...this.formData,
-      }, {
-        params: {
-          userAccessKey: this.$store.state.userAccessKey,
-        },
-      })
-        .then((response) => {
-          this.$store.commit('resetCart');
-          this.$store.commit('updateOrderInfo', response.data);
-          this.$router.push({ name: 'orderInfo', params: { id: response.data.id } });
+      this.isOrderSending = true;
+      clearTimeout(this.sendOrderTimer);
+      this.sendOrderTimer = setTimeout(() => {
+        axios.post(`${API_BASE_URL}/api/orders`, {
+          ...this.formData,
+        }, {
+          params: {
+            userAccessKey: this.$store.state.userAccessKey,
+          },
         })
-        .catch((error) => {
-          this.formError = error.response.data.error.request || {};
-          this.formErrorMessage = error.response.data.error.message;
-        });
+          .then((response) => {
+            this.$store.commit('resetCart');
+            this.$store.commit('updateOrderInfo', response.data);
+            this.$router.push({ name: 'orderInfo', params: { id: response.data.id } });
+          })
+          .catch((error) => {
+            this.formError = error.response.data.error.request || {};
+            this.formErrorMessage = error.response.data.error.message;
+          })
+          .then(() => { this.isOrderSending = false; });
+      }, 2000);
     },
   },
 };

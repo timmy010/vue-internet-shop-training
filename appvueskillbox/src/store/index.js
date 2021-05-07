@@ -93,7 +93,7 @@ export default new Vuex.Store({
     loadCart(context) {
       context.commit('updateCartLoading', true);
 
-      return (new Promise((resolve) => setTimeout(resolve, 1000)))
+      return (new Promise((resolve) => setTimeout(resolve, 0)))
         .then(() => {
           axios.get(`${API_BASE_URL}/api/baskets`, {
             params: {
@@ -112,7 +112,7 @@ export default new Vuex.Store({
         });
     },
     addProductToCart(context, { productId, amount }) {
-      return (new Promise((resolve) => setTimeout(resolve, 1000)))
+      return (new Promise((resolve) => setTimeout(resolve, 0)))
         .then(() => {
           axios.post(`${API_BASE_URL}/api/baskets/products`, {
             productId,
