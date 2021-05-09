@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: 'vue-im',
+  publicPath: '/vue-im/',
 };
